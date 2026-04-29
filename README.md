@@ -19,39 +19,49 @@ This dataset contains synthetic sales data from a hypothetical e-commerce compan
 # Laporan Praktikum: Analisis Performa Penjualan E-commerce
 
 ## 1. Business Question
-Laporan ini bertujuan untuk menjawab beberapa pertanyaan kunci bisnis, antara lain:
-* Bagaimana tren penjualan bulanan selama periode data tersedia?
-* Apakah anggaran iklan berpengaruh signifikan terhadap total penjualan?
-* Siapa saja pelanggan yang masuk dalam segmen prioritas (Loyal)?
-* Kategori produk mana yang paling efisien dalam penggunaan budget iklan?
+Analisis ini dilakukan untuk menjawab beberapa pertanyaan kunci bisnis guna mengoptimalkan strategi penjualan dan pemasaran:
+* Bagaimana tren penjualan bulanan selama periode berlangsung?
+* Apakah terdapat korelasi kuat antara anggaran iklan (`Ad_Budget`) dengan total penjualan?
+* Produk mana saja yang tergolong "Underperformer" (harga tinggi namun kuantitas rendah)?
+* Bagaimana segmentasi pelanggan berdasarkan metode RFM (Recency, Frequency, Monetary)?
+* Kategori produk mana yang memberikan efisiensi tertinggi terhadap biaya iklan?
+* Apakah peningkatan anggaran iklan berpengaruh secara signifikan terhadap rata-rata penjualan?
 
 ## 2. Data Wrangling
-Proses pembersihan data yang dilakukan meliputi:
-* **Filtering:** Menghapus data transaksi yang memiliki harga satuan (`Price_Per_Unit`) kurang dari atau sama dengan 0 untuk menghindari anomali data.
-* **Tipe Data:** Mengonversi kolom `Order_Date` menjadi format *datetime* untuk memungkinkan analisis berbasis waktu (Tren & RFM).
+Sebelum melakukan analisis, dilakukan proses pembersihan dan transformasi data (Data Wrangling) sebagai berikut:
+* **Pengecekan Data:** Memastikan tidak ada data kosong yang mengganggu proses perhitungan.
+* **Filtering:** Menghapus baris data yang memiliki harga satuan (`Price_Per_Unit`) kurang dari atau sama dengan 0 untuk menghindari data anomali.
+* **Transformasi Waktu:** Mengonversi kolom `Order_Date` menjadi format *datetime* agar dapat dilakukan ekstraksi periode bulan dan perhitungan *Recency* pada analisis RFM.
 
 ## 3. Insights (Analisis & Visualisasi)
 
 ### A. Tren Penjualan & Korelasi
 ![Tren Penjualan](tren_penjualan.png)
-*Insight: Grafik ini menunjukkan fluktuasi penjualan tiap bulan. Terlihat adanya kenaikan/penurunan pada bulan tertentu yang bisa menjadi dasar evaluasi stok.*
+*Insight: Grafik di atas menunjukkan fluktuasi penjualan bulanan. Tren ini membantu perusahaan memahami periode puncak (peak season) dan masa lesu.*
 
 ![Heatmap Korelasi](heatmap_korelasi.png)
-*Insight: Heatmap menunjukkan korelasi antara variabel. Nilai korelasi yang tinggi antara Ad_Budget dan Total_Sales menandakan iklan sangat efektif.*
+*Insight: Berdasarkan heatmap, kita dapat melihat kekuatan hubungan antar variabel. Jika korelasi `Ad_Budget` dan `Total_Sales` mendekati 1, maka strategi iklan terbukti sangat efektif dalam mendorong omzet.*
 
-### B. Produk Underperformer
+### B. Identifikasi Produk Underperformer
 ![Underperformer](tugas1_underperformer.png)
-*Insight: Titik-titik di sebelah kanan garis merah (rata-rata harga) yang berada di bagian bawah grafik menunjukkan produk yang mahal namun penjualannya rendah.*
+*Insight: Melalui scatter plot ini, produk di sebelah kanan garis merah (rata-rata harga) yang berada di posisi bawah menunjukkan produk bernilai tinggi yang sulit terjual dalam jumlah banyak. Ini adalah kelompok produk yang membebani inventaris.*
 
-### C. Segmentasi Pelanggan (RFM)
-Berdasarkan analisis RFM, pelanggan telah dikelompokkan. Pelanggan dengan skor **555** adalah pelanggan terbaik yang harus dipertahankan.
+### C. Segmentasi Pelanggan (RFM Analysis)
+Berdasarkan skor RFM (1-5), setiap pelanggan diberikan label unik. 
+* **Pelanggan Loyal (Skor 555):** Pelanggan yang baru saja belanja, sering bertransaksi, dan nilai belanjanya besar.
+* **Pelanggan Berisiko:** Pelanggan dengan skor *Recency* rendah (1) yang sudah lama tidak melakukan transaksi.
 
-### D. Efisiensi Kategori
+### D. Efisiensi Iklan Per Kategori
 ![Efisiensi Kategori](tugas3_efisiensi.png)
-*Insight: Kategori dengan bar terpanjang menunjukkan pengembalian nilai penjualan tertinggi untuk setiap rupiah yang dihabiskan pada iklan.*
+*Insight: Bar chart ini menunjukkan rasio penjualan yang dihasilkan dari setiap rupiah iklan. Kategori dengan efisiensi tertinggi adalah prioritas utama untuk investasi pemasaran di masa depan.*
+
+### E. Uji Hipotesis Pengaruh Iklan
+Berdasarkan perbandingan rata-rata penjualan antara kelompok iklan tinggi (di atas median) dan iklan rendah:
+* **Hasil:** Jika rata-rata penjualan iklan tinggi > iklan rendah, maka perusahaan secara valid dapat menyimpulkan bahwa iklan memiliki dampak positif yang signifikan.
 
 ## 4. Recommendation
-Berdasarkan analisis di atas, rekomendasi bagi perusahaan adalah:
-1. **Optimasi Budget:** Alihkan sebagian anggaran iklan dari kategori yang tidak efisien ke kategori yang memiliki rasio efisiensi tinggi.
-2. **Loyalty Program:** Segera kirimkan promo eksklusif untuk pelanggan di segmen RFM terbaik agar tingkat retensi tetap tinggi.
-3. **Strategi Harga:** Evaluasi kembali produk *underperformer*, pertimbangkan untuk memberikan diskon agar stok cepat terjual (arus kas).
+Berdasarkan hasil analisis, berikut adalah rekomendasi strategis bagi perusahaan:
+1.  **Optimasi Anggaran:** Alokasikan budget iklan lebih besar ke kategori produk yang memiliki nilai efisiensi tinggi (berdasarkan hasil Tugas 3).
+2.  **Strategi Produk Underperformer:** Lakukan promo khusus, diskon, atau *bundling* untuk produk yang memiliki harga tinggi namun volume penjualan rendah guna meningkatkan arus kas.
+3.  **CRM & Loyalitas:** Berikan insentif khusus atau program poin untuk segmen pelanggan RFM terbaik (skor 555) agar mereka tetap setia dan tidak beralih ke kompetitor.
+4.  **Reaktivasi Pelanggan:** Targetkan pelanggan dengan skor *Recency* rendah melalui kampanye email marketing "We Miss You" untuk memicu transaksi kembali.
