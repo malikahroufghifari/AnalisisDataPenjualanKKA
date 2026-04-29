@@ -24,13 +24,13 @@ df['Order_Date'] = pd.to_datetime(df['Order_Date'])
 # plt.savefig('tren_penjualan.png', bbox_inches='tight') # Simpan gambar tren
 # plt.show()
 
-# # --- ANALISIS KORELASI (HEATMAP) ---
-# correlation = df[['Total_Sales','Ad_Budget', 'Discount_Percentage']].corr()
-# plt.figure(figsize=(8,6))
-# sns.heatmap(correlation, annot=True, cmap='coolwarm')
-# plt.title('Peta Korelasi Antar Variabel')
-# plt.savefig('heatmap_korelasi.png', bbox_inches='tight') # Simpan gambar heatmap
-# plt.show()
+# --- ANALISIS KORELASI (HEATMAP) ---
+correlation = df[['Total_Sales','Ad_Budget', 'Price_Per_Unit']].corr()
+plt.figure(figsize=(8,6))
+sns.heatmap(correlation, annot=True, cmap='coolwarm')
+plt.title('Peta Korelasi Antar Variabel')
+plt.savefig('heatmap_korelasi.png', bbox_inches='tight') # Simpan gambar heatmap
+plt.show()
 
 # # --- TUGAS 1: IDENTIFIKASI PRODUK UNDERPERFORMER ---
 # avg_price = df['Price_Per_Unit'].mean()
@@ -80,15 +80,15 @@ df['Order_Date'] = pd.to_datetime(df['Order_Date'])
 # plt.savefig('tugas3_efisiensi.png', bbox_inches='tight') # Simpan gambar tugas 3
 # plt.show()
 
-# --- TUGAS 4: UJI HIPOTESIS SEDERHANA (PENGARUH IKLAN) ---
-median_ads = df['Ad_Budget'].median()
-high_ads = df[df['Ad_Budget'] > median_ads]['Total_Sales']
-low_ads = df[df['Ad_Budget'] <= median_ads]['Total_Sales']
+# # --- TUGAS 4: UJI HIPOTESIS SEDERHANA (PENGARUH IKLAN) ---
+# median_ads = df['Ad_Budget'].median()
+# high_ads = df[df['Ad_Budget'] > median_ads]['Total_Sales']
+# low_ads = df[df['Ad_Budget'] <= median_ads]['Total_Sales']
 
-print(f"\nRata-rata Penjualan Iklan Tinggi: {high_ads.mean():.2f}")
-print(f"Rata-rata Penjualan Iklan Rendah: {low_ads.mean():.2f}")
+# print(f"\nRata-rata Penjualan Iklan Tinggi: {high_ads.mean():.2f}")
+# print(f"Rata-rata Penjualan Iklan Rendah: {low_ads.mean():.2f}")
 
-if high_ads.mean() > low_ads.mean():
-    print("Kesimpulan: Peningkatan Ad_Budget cenderung menghasilkan penjualan lebih tinggi.")
-else:
-    print("Kesimpulan: Ad_Budget tidak berpengaruh signifikan secara rata-rata.")
+# if high_ads.mean() > low_ads.mean():
+#     print("Kesimpulan: Peningkatan Ad_Budget cenderung menghasilkan penjualan lebih tinggi.")
+# else:
+#     print("Kesimpulan: Ad_Budget tidak berpengaruh signifikan secara rata-rata.")
